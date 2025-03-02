@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
         set
         {
             _isMoving = value;
-            _animator.SetBool("isMoving", value);
+            _animator.SetBool(AnimationStrings.isMoving, value);
         }
     }
 
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
         set
         {
             _isRunning = value;
-            _animator.SetBool("isRunning", value);
+            _animator.SetBool(AnimationStrings.isRunning, value);
         }
     }
 
@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         PlayerRigidBody.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, PlayerRigidBody.velocity.y);
+        _animator.SetFloat(AnimationStrings.yVelocity, PlayerRigidBody.velocity.y);
     }
 
     private void HandleFlipping()

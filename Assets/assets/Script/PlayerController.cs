@@ -7,27 +7,39 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;
     public float walkingSpeed = 5f;
     public float runSpeed = 8f;
+    public float airSpeed = 3f;
+    public float JumpImpulse=10f;
     [SerializeField] private bool _isMoving = false;
     [SerializeField] private bool _isRunning = false;
     private float facingDirection = 1f;  // 1 for right, -1 for left
 
     Rigidbody2D PlayerRigidBody;
     Animator _animator;
+    TouchingDirection touchingDirection;
+    
 
     public float CurrentMoveSpeed
     {
         get
         {
-            if (_isMoving)
+            if (_isMoving && !touchingDirection.IsOnWall)
             {
-                if (_isRunning)
+                if (touchingDirection.IsGrounded)
                 {
+                    if (_isRunning)
+                    {
                     return runSpeed;
+                    }
+                    else
+                    {
+                    return walkingSpeed;
+                    }
                 }
                 else
                 {
-                    return walkingSpeed;
+                    return airSpeed;
                 }
+                
             }
             else
             {
@@ -55,11 +67,11 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool(AnimationStrings.isRunning, value);
         }
     }
-
     private void Awake()
     {
         PlayerRigidBody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        touchingDirection = GetComponent<TouchingDirection>();
 
         // Ensure initial scale is set correctly
         transform.localScale = new Vector3(1f, 1f, 1f);
@@ -110,6 +122,15 @@ public class PlayerController : MonoBehaviour
         else if (context.canceled)
         {
             IsRunning = false;
+        }
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.started && touchingDirection.IsGrounded)
+        {
+            _animator.SetTrigger(AnimationStrings.jump);
+            PlayerRigidBody.velocity=new Vector2(PlayerRigidBody.velocity.x, JumpImpulse);
         }
     }
 }

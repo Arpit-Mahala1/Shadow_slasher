@@ -133,4 +133,12 @@ public class PlayerController : MonoBehaviour
             PlayerRigidBody.velocity=new Vector2(PlayerRigidBody.velocity.x, JumpImpulse);
         }
     }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.started) 
+        {
+            _animator.SetTrigger(AnimationStrings.attack);
+        }
+    }
 }

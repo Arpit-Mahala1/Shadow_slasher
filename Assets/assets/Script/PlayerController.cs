@@ -22,29 +22,37 @@ public class PlayerController : MonoBehaviour
     {
         get
         {
-            if (_isMoving && !touchingDirection.IsOnWall)
+            if (canMove)
             {
-                if (touchingDirection.IsGrounded)
+                if (_isMoving && !touchingDirection.IsOnWall)
                 {
-                    if (_isRunning)
+                    if (touchingDirection.IsGrounded)
                     {
-                    return runSpeed;
+                        if (_isRunning)
+                        {
+                            return runSpeed;
+                        }
+                        else
+                        {
+                            return walkingSpeed;
+                        }
                     }
                     else
                     {
-                    return walkingSpeed;
+                        return airSpeed;
                     }
+
                 }
                 else
                 {
-                    return airSpeed;
+                    return 0;
                 }
-                
             }
             else
             {
                 return 0;
             }
+            
         }
     }
 
@@ -65,6 +73,14 @@ public class PlayerController : MonoBehaviour
         {
             _isRunning = value;
             _animator.SetBool(AnimationStrings.isRunning, value);
+        }
+    }
+
+    public bool canMove
+    {
+        get
+        {
+            return _animator.GetBool(AnimationStrings.canMove);
         }
     }
     private void Awake()
@@ -127,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started && touchingDirection.IsGrounded)
+        if (context.started && touchingDirection.IsGrounded && canMove)
         {
             _animator.SetTrigger(AnimationStrings.jump);
             PlayerRigidBody.velocity=new Vector2(PlayerRigidBody.velocity.x, JumpImpulse);

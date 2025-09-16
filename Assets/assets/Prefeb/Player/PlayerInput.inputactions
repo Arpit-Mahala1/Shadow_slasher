@@ -274,6 +274,28 @@
                 },
                 {
                     "name": "",
+                    "id": "68a061fe-61a7-4576-a6b0-783e6d6a7997",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad;Keyboard&Mouse",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4c75abac-444e-4152-907f-ca146558f1f0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "565476c8-63ab-41ee-8cf6-c0fc1eb22102",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",

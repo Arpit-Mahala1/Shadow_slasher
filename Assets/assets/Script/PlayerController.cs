@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -83,6 +84,14 @@ public class PlayerController : MonoBehaviour
             return _animator.GetBool(AnimationStrings.canMove);
         }
     }
+
+    public bool IsAlive
+    {
+        get
+        {
+            return _animator.GetBool(AnimationStrings.canMove);
+        }
+    }
     private void Awake()
     {
         PlayerRigidBody = GetComponent<Rigidbody2D>();
@@ -95,7 +104,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        HandleFlipping();
+        HandleFlipping(moveInput);
     }
 
     private void FixedUpdate()
@@ -104,7 +113,7 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat(AnimationStrings.yVelocity, PlayerRigidBody.velocity.y);
     }
 
-    private void HandleFlipping()
+    private void HandleFlipping(Vector2 moveInput)
     {
         if (moveInput.x != 0)
         {
@@ -126,8 +135,21 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
-        IsMoving = moveInput != Vector2.zero;
+
+        if (IsAlive)
+        {
+            IsMoving = moveInput != Vector2.zero;
+
+            HandleFlipping(moveInput);
+        }
+        else
+        {
+            PlayerInput input = GetComponent<PlayerInput>(); input.actions.Disable();
+        }
+        
     }
+
+    
 
     public void OnRun(InputAction.CallbackContext context)
     {

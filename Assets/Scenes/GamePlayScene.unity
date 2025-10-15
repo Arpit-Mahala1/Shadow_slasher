@@ -6551,11 +6551,10 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4540305699505733515, guid: 0a27a2a800a313946b85540aa19f8722, type: 3}
   m_PrefabInstance: {fileID: 5917828222850918862}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2089828271
+--- !u!114 &2089828271 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3439516019059501405, guid: 0a27a2a800a313946b85540aa19f8722, type: 3}
+  m_PrefabInstance: {fileID: 5917828222850918862}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2089828269}
   m_Enabled: 1
@@ -6563,12 +6562,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eea2f4373e66cc0489ef8a504cae293e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingSpeed: 5
-  runSpeed: 8
-  airSpeed: 3
-  JumpImpulse: 10
-  _isMoving: 0
-  _isRunning: 0
 --- !u!4 &2089828274 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3928143003613470520, guid: 0a27a2a800a313946b85540aa19f8722, type: 3}
@@ -6958,9 +6951,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4540305699505733515, guid: 0a27a2a800a313946b85540aa19f8722, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 2089828271}
     - targetCorrespondingSourceObject: {fileID: 4540305699505733515, guid: 0a27a2a800a313946b85540aa19f8722, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2089828278}

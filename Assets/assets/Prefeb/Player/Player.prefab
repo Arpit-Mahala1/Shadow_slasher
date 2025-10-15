@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3928143003613470520}
   - component: {fileID: 5278370355971486555}
   - component: {fileID: 5044486340969034430}
+  - component: {fileID: 3439516019059501405}
   - component: {fileID: 3082690342451501088}
   - component: {fileID: 8018388608986754825}
   - component: {fileID: 4441413045281304638}
@@ -117,6 +118,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &3439516019059501405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4540305699505733515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea2f4373e66cc0489ef8a504cae293e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkingSpeed: 5
+  runSpeed: 8
+  airSpeed: 3
+  JumpImpulse: 10
+  _isMoving: 0
+  _isRunning: 0
 --- !u!114 &3082690342451501088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +242,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276204d8640b6364f984221e46a302ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageableHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3439516019059501405}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnHit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _maxHealth: 100
+  _health: 100
+  _isAlive: 1
+  isInvincible: 0
+  InvincibleTime: 0.5
 --- !u!111 &4986577148500731945
 Animation:
   m_ObjectHideFlags: 0

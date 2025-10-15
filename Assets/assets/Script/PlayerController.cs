@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirection))]
 public class PlayerController : MonoBehaviour
 {
     Vector2 moveInput;
@@ -92,6 +93,14 @@ public class PlayerController : MonoBehaviour
             return _animator.GetBool(AnimationStrings.canMove);
         }
     }
+
+    public bool LockVelocity
+    {
+        get
+        {
+            return _animator.GetBool(AnimationStrings.lockVelocity);
+        }
+    }
     private void Awake()
     {
         PlayerRigidBody = GetComponent<Rigidbody2D>();
@@ -100,6 +109,7 @@ public class PlayerController : MonoBehaviour
 
         // Ensure initial scale is set correctly
         transform.localScale = new Vector3(1f, 1f, 1f);
+        
     }
 
     private void Update()
@@ -109,7 +119,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        PlayerRigidBody.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, PlayerRigidBody.velocity.y);
+        if (!LockVelocity)
+        {
+            PlayerRigidBody.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, PlayerRigidBody.velocity.y);
+        }
+        
         _animator.SetFloat(AnimationStrings.yVelocity, PlayerRigidBody.velocity.y);
     }
 
@@ -178,5 +192,10 @@ public class PlayerController : MonoBehaviour
         {
             _animator.SetTrigger(AnimationStrings.attack);
         }
+    }
+
+    public void OnHit(int damage, Vector2 knockback)
+    {
+        PlayerRigidBody.velocity = new Vector2(knockback.x, PlayerRigidBody.velocity.y+ knockback.y);
     }
 }

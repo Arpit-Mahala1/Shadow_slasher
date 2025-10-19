@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirection))]
+[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirection), typeof(Damageable))]
 public class PlayerController : MonoBehaviour
 {
     Vector2 moveInput;
@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D PlayerRigidBody;
     Animator _animator;
     TouchingDirection touchingDirection;
+    Damageable damageable;
     
 
     public float CurrentMoveSpeed
@@ -100,12 +101,17 @@ public class PlayerController : MonoBehaviour
         {
             return _animator.GetBool(AnimationStrings.lockVelocity);
         }
+        set
+        {
+            _animator.SetBool(AnimationStrings.lockVelocity, value);
+        }
     }
     private void Awake()
     {
         PlayerRigidBody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         touchingDirection = GetComponent<TouchingDirection>();
+        damageable = GetComponent<Damageable>();
 
         // Ensure initial scale is set correctly
         transform.localScale = new Vector3(1f, 1f, 1f);
@@ -114,12 +120,24 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // Check if stuck in hit animation
+        AnimatorStateInfo currentState = _animator.GetCurrentAnimatorStateInfo(0);
+
+        // If we're in hit state and animation has finished playing
+        if (currentState.IsName("Player_hit") && currentState.normalizedTime >= 1.0f)
+        {
+            Debug.Log("Hit animation finished but still in state - forcing transition");
+            // Force the animator to move to next state
+            _animator.SetBool(AnimationStrings.lockVelocity, false);
+            _animator.SetBool(AnimationStrings.canMove, true);
+        }
+
         HandleFlipping(moveInput);
     }
 
     private void FixedUpdate()
     {
-        if (!LockVelocity)
+        if (!damageable.LockVelocity)
         {
             PlayerRigidBody.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, PlayerRigidBody.velocity.y);
         }
@@ -196,6 +214,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnHit(int damage, Vector2 knockback)
     {
+        
         PlayerRigidBody.velocity = new Vector2(knockback.x, PlayerRigidBody.velocity.y+ knockback.y);
     }
 }

@@ -13,7 +13,8 @@ public class Attack : MonoBehaviour
 
         if(damageable != null)
         {
-            bool gothit = damageable.Hit(attackDamage, knockback);
+            Vector2 deliveredKnockback= transform.parent.localScale.x >0? knockback: new Vector2(-knockback.x, knockback.y);
+            bool gothit = damageable.Hit(attackDamage, deliveredKnockback);
 
             if (gothit)
             {

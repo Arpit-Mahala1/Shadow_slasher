@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirection))]
+[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirection), typeof(Damageable))]
 public class Knight : MonoBehaviour
 {
 
@@ -17,6 +17,7 @@ public class Knight : MonoBehaviour
 
     private WalkableDirection _walkDirection;
     private Vector2 walkDirectionVector = Vector2.right;
+    Damageable damageable;
 
     public WalkableDirection WalkDirection
     {
@@ -38,6 +39,7 @@ public class Knight : MonoBehaviour
             
             _walkDirection = value; }
     }
+
 
     public bool _hasTarget = false;
     public float walkStopRate=0.2f;
@@ -61,6 +63,7 @@ public class Knight : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         touchingDirection = GetComponent<TouchingDirection>();
         animator = GetComponent<Animator>();
+        damageable = GetComponent<Damageable>();
     }
 
     private void Update()
@@ -74,14 +77,19 @@ public class Knight : MonoBehaviour
         {
             FlipDirection();
         }
-        if (CanMove)
+
+        if (!damageable.LockVelocity)
         {
-            rb.velocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.velocity.y);
+            if (CanMove)
+            {
+                rb.velocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x, 0, walkStopRate), rb.velocity.y);
+            }
         }
-        else
-        {
-            rb.velocity = new Vector2 (Mathf.Lerp(rb.velocity.x,0, walkStopRate), rb.velocity.y);
-        }
+        
     }
 
     private void FlipDirection()
@@ -97,6 +105,11 @@ public class Knight : MonoBehaviour
         {
             Debug.LogError("Current walkable direction is not set to legal values of right or left");
         }
+    }
+
+    public void OnHIt(int damage, Vector2 knockback)
+    {
+        rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
     }
 
     

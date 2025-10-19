@@ -50,23 +50,6 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!114 &-7917061693181472321
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b111756da2d76d488f6168ab042fe1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boolName: canMove
-  UpdateOnState: 1
-  UpdateOnStateMachine: 0
-  ValueOnEnter: 0
-  ValueOnExit: 1
 --- !u!1102 &-7900125528081651680
 AnimatorState:
   serializedVersion: 6
@@ -226,10 +209,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: isGrounded
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 826025452866809517}
   m_DstState: {fileID: 0}
   m_Solo: 0
@@ -659,8 +639,7 @@ AnimatorState:
   - {fileID: -793761173615892651}
   - {fileID: -6584614709516531519}
   m_StateMachineBehaviours:
-  - {fileID: -7917061693181472321}
-  - {fileID: 1355392217232906839}
+  - {fileID: 1334895748473304583}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -732,10 +711,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: isGrounded
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 7349927734855795576}
   m_DstState: {fileID: 0}
   m_Solo: 0
@@ -1014,7 +990,7 @@ AnimatorTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 1
---- !u!114 &1355392217232906839
+--- !u!114 &1334895748473304583
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1023,14 +999,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b111756da2d76d488f6168ab042fe1b, type: 3}
+  m_Script: {fileID: 11500000, guid: 58d7ca24503b6c84eacb90cf85c99fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boolName: lockVelocity
-  UpdateOnState: 1
-  UpdateOnStateMachine: 0
-  ValueOnEnter: 1
-  ValueOnExit: 0
 --- !u!1101 &2706910246662051194
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
